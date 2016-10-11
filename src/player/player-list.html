@@ -3,7 +3,7 @@
   <h1>Player Roster</h1>
   <ul class="list-unstyled">
     <li repeat.for="player of players">
-      ${player.name}
+      ${player.id}: ${player.name} <button class="btn btn-danger" click.delegate="$parent.removePlayer(player)"> Remove Player</button>
     </li>
     <li>
       <new-player-form></new-player-form>

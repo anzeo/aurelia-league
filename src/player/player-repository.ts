@@ -9,20 +9,29 @@ export class PlayerRepository {
   getNextPlayerId(players): number {
     return players
         .map(p => p.id)
-        .reduce((max, cur) => Math.max(max, cur), -Infinity) + 1;
+        .reduce((max, cur) => Math.max(max, cur), 0) + 1;
   }
 
   addPlayer(name: string): Promise<any> {
     return this.getAllPlayers()
       .then(players => players || [])
-      .then(players => {
-      players.push({
-        id: this.getNextPlayerId(players),
-        name: name
-      });
-
-      return localforage.setItem('players', players);
-    })
+      .then(players => players.concat([{
+          id: this.getNextPlayerId(players),
+          name: name
+        }])
+      )
+      .then(savePlayers)
   }
 
+  removePlayer(playerId: number): Promise<any> {
+    return this.getAllPlayers()
+      .then(players => players.filter(p => p.id !== playerId))
+      .then(savePlayers)
+  }
 }
+
+function savePlayers(players): Promise<any> {
+  return localforage.setItem('players', players);
+}
+
+
