@@ -12,8 +12,8 @@ export class PlayerRepository {
         .reduce((max, cur) => Math.max(max, cur), -Infinity) + 1;
   }
 
-  addPlayer(name: string) {
-    this.getAllPlayers()
+  addPlayer(name: string): Promise<any> {
+    return this.getAllPlayers()
       .then(players => players || [])
       .then(players => {
       players.push({
@@ -21,7 +21,7 @@ export class PlayerRepository {
         name: name
       });
 
-      localforage.setItem('players', players);
+      return localforage.setItem('players', players);
     })
   }
 

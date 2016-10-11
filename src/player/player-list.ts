@@ -1,11 +1,14 @@
 import {PlayerRepository} from './player-repository';
 import {inject} from 'aurelia-framework';
+import {EventAggregator} from 'aurelia-event-aggregator';
+import {PlayerAddedOrRemoved} from './player-messages'
 
-@inject(PlayerRepository)
+@inject(PlayerRepository, EventAggregator)
 export class PlayerList {
   players;
 
-  constructor(private repository: PlayerRepository) {
+  constructor(private repository: PlayerRepository, pubsub: EventAggregator) {
+    pubsub.subscribe(PlayerAddedOrRemoved, () => this.created())
   }
 
   created() {
