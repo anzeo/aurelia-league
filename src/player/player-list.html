@@ -1,0 +1,12 @@
+<template>
+  <require from="./new-player-form"></require>
+  <h1>Player Roster</h1>
+  <ul class="list-unstyled">
+    <li repeat.for="player of players">
+      ${player.name}
+    </li>
+    <li>
+      <new-player-form></new-player-form>
+    </li>
+  </ul>
+</template>

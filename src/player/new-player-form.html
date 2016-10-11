@@ -1,0 +1,7 @@
+<template>
+  <h3>Add a new player</h3>
+  <form submit.delegate="addPlayer()">
+    <input value.bind="newPlayerName" class="form-control">
+    <button class="btn btn-primary" type="submit" disabled.bind="!newPlayerName">Add Player</button>
+  </form>
+</template>
