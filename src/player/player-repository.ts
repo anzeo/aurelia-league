@@ -1,33 +1,28 @@
+import * as localforage from 'localforage';
+
 export class PlayerRepository {
 
-  playerCache;
-
-  getAllPlayers() {
-    if (!this.playerCache) {
-      this.playerCache = [
-        {
-          id: 1,
-          name: 'John Foo'
-        }
-      ];
-    }
-
-    return this.playerCache;
+  getAllPlayers(): Promise<any> {
+    return localforage.getItem('players');
   }
 
-  getNextPlayerId(): number {
-    return this.getAllPlayers()
-      .map(p => p.id)
-      .reduce((max, cur) => Math.max(max, cur)) + 1;
+  getNextPlayerId(players): number {
+    return players
+        .map(p => p.id)
+        .reduce((max, cur) => Math.max(max, cur), -Infinity) + 1;
   }
 
   addPlayer(name: string) {
-    var nextId = this.getNextPlayerId();
+    this.getAllPlayers()
+      .then(players => players || [])
+      .then(players => {
+      players.push({
+        id: this.getNextPlayerId(players),
+        name: name
+      });
 
-    this.playerCache.push({
-      id: nextId,
-      name: name
-    });
+      localforage.setItem('players', players);
+    })
   }
 
 }

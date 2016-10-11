@@ -9,6 +9,6 @@ export class PlayerList {
   }
 
   created() {
-    this.players = this.repository.getAllPlayers();
+    this.repository.getAllPlayers().then(players => this.players = players);
   }
 }

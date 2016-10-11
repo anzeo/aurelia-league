@@ -144,6 +144,11 @@
             "resources": [
               "css/bootstrap.css"
             ]
+          },
+          {
+            "name": "localforage",
+            "path": "../node_modules/localforage/dist",
+            "main": "localforage.min"
           }
         ]
       }
