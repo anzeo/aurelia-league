@@ -4,10 +4,10 @@ export class App {
   router: Router;
 
   configureRouter(config: RouterConfiguration, router: Router) {
-    config.title = 'Contacts';
+    config.title = 'Rocket Laegue';
     config.map([
-      {route: 'championship', moduleId: 'championship/championship', title: 'Championship'},
-      {route: '', moduleId: 'player/player-list', name: 'Players'}
+      {route: '', moduleId: 'championship/championship', name: 'championship'},
+      {route: 'players', moduleId: 'player/player-list', name: 'players'}
     ]);
 
     this.router = router;
